@@ -8,9 +8,6 @@ const TodoPage = () => {
     const [inputValue, setInputValue] = useState("");
     const [task, setTask] = useState([]);
 
-    const handleInputChange = (value)=> {
-        setInputValue(value)
-    };
     const handleFormSubmit = (e) => {
         e.preventDefault();
         if(!inputValue)return;
@@ -37,7 +34,7 @@ const TodoPage = () => {
                         <form onSubmit={handleFormSubmit}>
                             <div className='mt-8'>
                                 <input type="text" placeholder='Enter Task' className='border-none outline-none rounded-tl-full rounded-bl-full py-2 px-4' autoComplete='off'
-                                value={inputValue} onChange={(e) => handleInputChange(e.target.value)} />
+                                value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
 
                                 <button type='submit' className='rounded-tr-full rounded-br-full py-2 px-4 bg-blue-500 text-white font-bold hover:bg-blue-800'>Add Task</button>
                             </div>
