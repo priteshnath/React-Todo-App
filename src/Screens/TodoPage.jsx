@@ -6,20 +6,23 @@ import TodoFrom from '../Components/TodoFrom';
 
 
 const TodoPage = () => {
-    const [task, setTask] = useState([]);
+    const [task, setTask] = useState(() => {
+        const ToData = localStorage.getItem('TodoData');
+        return ToData ? JSON.parse(ToData) : [];
+    });
     const [dateTime, setDateTime] = useState("");
 
     const handleFormSubmit = (inputValue) => {
         const {id, content, checked} = inputValue;
         if (!content) return;
         
-        const ifContent = task.find(
-            (curTask) => curTask.content == content
-        );
-        if(ifContent)return;
+        const isTaskContain = task.find( (curTask) => curTask.content == content );
+        if(isTaskContain)return;
 
         setTask((prevTask) => [...prevTask, {id:id, content:content, checked:checked}]);
     };
+
+    localStorage.setItem('TodoData' ,JSON.stringify(task));
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -33,16 +36,16 @@ const TodoPage = () => {
     }, []);
     
 
-    const handleDelteTask = (value) => {
+    const handleDelteTask = (id) => {
         const updatedTask = task.filter((currTask) => {
-            return currTask.id !== value;
+            return currTask.id !== id;
         })
         setTask(updatedTask);
     };
 
     const handleCheckedTask = (value) =>{
         const updatedTask = task.map((curTask) =>{
-            if(curTask.content == value){
+            if(curTask.content === value){
                 return {...curTask, checked : !curTask.checked};
             }else{
                 return curTask;

@@ -11,9 +11,9 @@ const TodoFrom = ({ onAddTodo }) => {
     // Handle form submission
     const handleFormSubmit = (event) => {
         event.preventDefault();
-        if (inputValue.content) { // Ensure the input is not empty
-            onAddTodo(inputValue); // Pass the task to the parent component
-            setInputValue({}); // Clear the input field after adding the task
+        if (inputValue.content) { 
+            onAddTodo(inputValue);
+            setInputValue({}); 
         }
     };
 
@@ -21,7 +21,6 @@ const TodoFrom = ({ onAddTodo }) => {
         <div>
             <form onSubmit={handleFormSubmit}>
                 <div className='mt-4'>
-                    {/* Added conditional check for inputValue.content */}
                     <input 
                         type="text" 
                         placeholder='Enter Task' 
